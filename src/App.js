@@ -2,20 +2,22 @@ import React from "react";
 import "./styles.css";
 
 const Field = props => {
-  const setter  = props["set" + props.name]
+  const setter = props["set" + props.name];
+
   const onChange = evt => {
-    console.log(evt.value)
-    setter(parseFloat(evt.value))
+    console.log(evt.target.value);
+    setter(parseFloat(evt.target.value));
   };
+
   return (
-    <label style={{ marginBottom: "4px", display: "block" }}>
+    <label style={{ marginBottom: "8px", display: "block" }}>
       {props.name}:
       <br />
       <input
         onChange={onChange}
         type="number"
         name={props.name}
-        value={props[props.name]}
+        value={props[props.name].toFixed(2)}
         step="0.01"
       />
     </label>
@@ -23,7 +25,7 @@ const Field = props => {
 };
 
 export default function App() {
-  const [PriceUS, setPriceUS] = React.useState(35.25);
+  const [PriceUS, setPriceUS] = React.useState(35.45);
   const [FBAUS, setFBAUS] = React.useState(3.28);
   const [FBACA, setFBACA] = React.useState(6.97);
   const [FBAMX, setFBAMX] = React.useState(97.64);
@@ -45,6 +47,7 @@ export default function App() {
     setCurrencyCA
   };
 
+  const calculation = ((PriceUS - FBAUS) * CurrencyCA + FBACA).toFixed(2);
   return (
     <div>
       <header className="App">
@@ -57,18 +60,14 @@ export default function App() {
       </header>
 
       <Field name="PriceUS" {...props} {...setters} />
-      <br />
       <Field name="FBAUS" {...props} {...setters} />
-      <br />
       <Field name="FBACA" {...props} {...setters} />
-      <br />
       <Field name="FBAMX" {...props} {...setters} />
 
       <div>
         <h3>
           Calculation $(PRICE in US minus US FBA) X Currency + country FBA ($
-          {PriceUS} - ${FBAUS}) x {CurrencyCA} + ${FBACA} ={" "}
-          {(PriceUS - FBAUS) * CurrencyCA * 2 + FBACA}
+          {PriceUS} - ${FBAUS}) x {CurrencyCA} + ${FBACA} = {calculation}
         </h3>
       </div>
     </div>
