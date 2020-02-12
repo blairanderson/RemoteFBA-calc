@@ -51,7 +51,12 @@ export default function App() {
   return (
     <div>
       <header className="App">
-        <h1>Remote Fulfillment with FBA Calculator</h1>
+        <a
+          style={{ color: "black", textDecoration: "none" }}
+          href="https://36mwc.csb.app/"
+        >
+          <h1>Remote Fulfillment with FBA Calculator</h1>
+        </a>
         <p>
           In the US you have a price of $10 USD, and the currency exchange rate
           is $1 USD = $1.30 CAD. The FBA fulfillment fee in the US is $1 USD,
@@ -59,16 +64,18 @@ export default function App() {
         </p>
       </header>
 
-      <Field name="PriceUS" {...props} {...setters} />
-      <Field name="FBAUS" {...props} {...setters} />
-      <Field name="FBACA" {...props} {...setters} />
-      <Field name="FBAMX" {...props} {...setters} />
+      <div className="container">
+        <Field name="PriceUS" {...props} {...setters} />
+        <Field name="FBAUS" {...props} {...setters} />
+        <Field name="FBACA" {...props} {...setters} />
+        <Field name="FBAMX" {...props} {...setters} />
 
-      <div>
-        <h3>
-          Calculation $(PRICE in US minus US FBA) X Currency + country FBA ($
-          {PriceUS} - ${FBAUS}) x {CurrencyCA} + ${FBACA} = {calculation}
-        </h3>
+        <div>
+          <h3>
+            Calculation $(PRICE in US minus US FBA) X Currency + country FBA ($
+            {PriceUS} - ${FBAUS}) x {CurrencyCA} + ${FBACA} = {calculation}
+          </h3>
+        </div>
       </div>
     </div>
   );
